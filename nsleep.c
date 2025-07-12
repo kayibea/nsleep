@@ -10,15 +10,15 @@
 #define NSEC_MIN 0L
 #define NSEC_MAX 999999999L
 
-static void push_timespec(lua_State *L, struct timespec ts) {
+static void push_timespec(lua_State *L, const struct timespec *ts) {
   lua_newtable(L);
 
   lua_pushstring(L, "tv_sec");
-  lua_pushinteger(L, ts.tv_sec);
+  lua_pushinteger(L, ts->tv_sec);
   lua_settable(L, -3);
 
   lua_pushstring(L, "tv_nsec");
-  lua_pushinteger(L, ts.tv_nsec);
+  lua_pushinteger(L, ts->tv_nsec);
   lua_settable(L, -3);
 }
 
@@ -41,7 +41,7 @@ static int l_nanosleep(lua_State *L) {
   lua_pop(L, 1);
 
   if (nanosleep(&ts, &rm) != 0) {
-    push_timespec(L, rm);
+    push_timespec(L, &rm);
     lua_pushstring(L, strerror(errno));
     lua_pushinteger(L, errno);
     return 3;
