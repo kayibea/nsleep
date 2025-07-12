@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package = "nsleep"
-version = "0.1.0-3"
+version = "0.1.1-1"
 source = {
    url = "git://github.com/kayibea/nsleep.git"
 }
